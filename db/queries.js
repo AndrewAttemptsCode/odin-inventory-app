@@ -5,4 +5,9 @@ const getAllGenres = async () => {
   return rows;
 }
 
-module.exports = { getAllGenres };
+const getAllMovies = async () => {
+  const { rows } = await pool.query('SELECT * FROM movies ORDER BY title ASC;');
+  return rows;
+}
+
+module.exports = { getAllGenres, getAllMovies };
