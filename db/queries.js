@@ -10,4 +10,16 @@ const getAllMovies = async () => {
   return rows;
 }
 
-module.exports = { getAllGenres, getAllMovies };
+const getGenreMovies = async (genre) => {
+  const { rows } = await pool.query(
+    `SELECT *
+    FROM movies
+    INNER JOIN genres
+    ON movies.id = genres.movie_id
+    WHERE genres.category = $1;`,
+    [genre]
+  );
+  return rows;
+}
+
+module.exports = { getAllGenres, getAllMovies, getGenreMovies };
