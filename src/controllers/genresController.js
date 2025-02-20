@@ -5,4 +5,10 @@ const allGenreGet = async (req, res) => {
   res.render('genres', { title: 'All genres', genres });
 }
 
-module.exports = { allGenreGet };
+const genreMoviesGet = async (req, res) => {
+  const genre = req.params.genre;
+  const movies = await db.getGenreMovies(genre);
+  res.render('genre', { title: `${genre} movies`, movies })
+}
+
+module.exports = { allGenreGet, genreMoviesGet };
