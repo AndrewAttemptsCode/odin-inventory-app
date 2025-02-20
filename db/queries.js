@@ -22,4 +22,14 @@ const getGenreMovies = async (genre) => {
   return rows;
 }
 
-module.exports = { getAllGenres, getAllMovies, getGenreMovies };
+const movieGet = async (title) => {
+  const movie = await pool.query(
+    `SELECT *
+    FROM movies
+    WHERE movies.title = $1;`,
+    [title]
+  );
+  return movie;
+}
+
+module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet };
