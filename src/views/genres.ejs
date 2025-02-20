@@ -10,7 +10,7 @@
   
   <ul>
     <% genres.forEach(genre => { %>
-      <li><%= genre.category %></li>
+      <li><a href="/genres/<%= genre.category %>"><%= genre.category %></a></li>
     <% }); %>
   </ul>
 </body>
