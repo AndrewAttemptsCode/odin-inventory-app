@@ -8,7 +8,7 @@ const allMoviesGet = async (req, res) => {
 const movieGet = async (req, res) => {
   const title = req.params.movie;
   const movie = await db.movieGet(title);
-  res.render('movie', { title: `${title}`, movie });
+  res.render('movie', { title: `${movie.title}`, movie });
 }
 
 module.exports = { allMoviesGet, movieGet };
