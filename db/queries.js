@@ -32,4 +32,14 @@ const movieGet = async (title) => {
   return rows[0];
 }
 
-module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet };
+const getAllDirectors = async () => {
+  const { rows } = await pool.query(
+    `SELECT DISTINCT first_name, last_name
+    FROM directors
+    ORDER BY first_name ASC
+    ;`
+  )
+  return rows;
+}
+
+module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors };
