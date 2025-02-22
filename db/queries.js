@@ -23,13 +23,13 @@ const getGenreMovies = async (genre) => {
 }
 
 const movieGet = async (title) => {
-  const movie = await pool.query(
+  const { rows } = await pool.query(
     `SELECT *
     FROM movies
     WHERE movies.title = $1;`,
     [title]
   );
-  return movie;
+  return rows[0];
 }
 
 module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet };
