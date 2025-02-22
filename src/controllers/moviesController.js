@@ -8,7 +8,7 @@ const allMoviesGet = asyncHandler(async (req, res) => {
     return res.status(404).send('No movies found');
   }
 
-  res.render('movies', { title: 'All movies', movies });
+  res.render('movies', { title: 'Movies', movies });
 })
 
 const movieGet = asyncHandler(async (req, res) => {
