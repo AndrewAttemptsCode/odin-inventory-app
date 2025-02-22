@@ -19,6 +19,15 @@ const movieGet = asyncHandler(async (req, res) => {
     return res.status(404).send(`Cannot find movie: ${title}`);
   }
 
+  const releaseObj = new Date(movie.release_date);
+  const day = releaseObj.toLocaleString('en', {weekday: 'long'});
+  const date = String(releaseObj.getDate()).padStart(2, '0');
+  const month = releaseObj.toLocaleString('en', {month: 'long'});
+  const year = releaseObj.getFullYear();
+
+  const formattedDate = `${day}, ${date} ${month}, ${year}`;
+  movie.releaseDate = formattedDate;
+
   res.render('movie', { title: `${movie.title}`, movie });
 })
 
