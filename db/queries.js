@@ -42,4 +42,18 @@ const getAllDirectors = async () => {
   return rows;
 }
 
-module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors };
+const getDirector = async (directorName) => {
+  const [firstName, lastName] = directorName.split(' ');
+
+  const { rows } = await pool.query(`
+    SELECT *
+    FROM directors
+    WHERE directors.first_name = $1
+    AND directors.last_name = $2
+    ;`,
+  [firstName, lastName]
+  );
+  return rows[0];
+}
+
+module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector };
