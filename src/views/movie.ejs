@@ -16,6 +16,12 @@
       Release Date: <%= movie.releaseDate %>
     </li>
   </ul>
-  
+
+  <ul>
+    <% movie.genres.forEach(genre => { %>
+      <li><a href="/genres/<%= genre %>"><%= genre %></a></li>
+    <% }); %>
+  </ul>
+
 </body>
 </html>
