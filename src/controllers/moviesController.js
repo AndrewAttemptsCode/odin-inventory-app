@@ -4,7 +4,7 @@ const asyncHandler = require('express-async-handler');
 const allMoviesGet = asyncHandler(async (req, res) => {
   const movies = await db.getAllMovies();
 
-  if (!movies) {
+  if (movies.length === 0) {
     return res.status(404).send('No movies found');
   }
 
