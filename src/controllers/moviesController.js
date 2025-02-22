@@ -27,7 +27,7 @@ const movieGet = asyncHandler(async (req, res) => {
 
   const formattedDate = `${day}, ${date} ${month}, ${year}`;
   movie.releaseDate = formattedDate;
-
+  
   res.render('movie', { title: `${movie.title}`, movie });
 })
 
