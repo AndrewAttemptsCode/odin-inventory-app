@@ -11,4 +11,15 @@ const allDirectorsGet = asyncHandler(async (req, res) => {
   res.render('directors', { title: 'All Directors', directors });
 })
 
-module.exports = { allDirectorsGet };
+const directorGet = asyncHandler(async (req, res) => {
+  const directorName = req.params.director;
+  const director = await db.getDirector(directorName);
+
+  if (!director) {
+    return res.status(404).send(`Cannot find director: ${directorName}`);
+  }
+
+  res.render('director', { title: 'Director Info', director });
+})
+
+module.exports = { allDirectorsGet, directorGet };
