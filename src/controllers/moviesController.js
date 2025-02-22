@@ -1,14 +1,25 @@
 const db = require('../../db/queries');
+const asyncHandler = require('express-async-handler');
 
-const allMoviesGet = async (req, res) => {
+const allMoviesGet = asyncHandler(async (req, res) => {
   const movies = await db.getAllMovies();
-  res.render('movies', { title: 'All movies', movies });
-}
 
-const movieGet = async (req, res) => {
+  if (!movies) {
+    return res.status(404).send('No movies found');
+  }
+
+  res.render('movies', { title: 'All movies', movies });
+})
+
+const movieGet = asyncHandler(async (req, res) => {
   const title = req.params.movie;
   const movie = await db.movieGet(title);
+
+  if (!movie) {
+    return res.status(404).send(`Cannot find movie: ${title}`);
+  }
+
   res.render('movie', { title: `${movie.title}`, movie });
-}
+})
 
 module.exports = { allMoviesGet, movieGet };
