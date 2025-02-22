@@ -23,13 +23,25 @@ const getGenreMovies = async (genre) => {
 }
 
 const movieGet = async (title) => {
-  const { rows } = await pool.query(
-    `SELECT *
-    FROM movies
-    WHERE movies.title = $1;`,
+  const movieQuery = await pool.query(
+    `SELECT id, title, release_date, rating
+    FROM movies 
+    WHERE title = $1;`,
     [title]
   );
-  return rows[0];
+
+  const movie = movieQuery.rows[0];
+
+  const genreQuery = await pool.query(
+    `SELECT category
+    FROM genres
+    WHERE movie_id = $1;`,
+    [movie.id]
+  );
+
+  movie.genres = genreQuery.rows.map(row => row.category);
+
+  return movie;
 }
 
 const getAllDirectors = async () => {
