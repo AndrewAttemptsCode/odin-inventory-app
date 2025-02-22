@@ -17,4 +17,11 @@ app.use('/movies', moviesRouter);
 app.use('/directors', directorsRouter);
 app.use('/genres', genresRouter);
 
+app.use((err, req, res, next) => {
+  console.error(err.message);
+  res.status(err.status || 500).send(
+    err.message || 'Internal Server Error'
+  );
+});
+
 module.exports = app;
