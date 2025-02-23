@@ -8,5 +8,15 @@
 <body>
   <h1><%= director.first_name %> <%= director.last_name %></h1>
   <img src="/default_profile.png" alt="" height="200px;">
+
+  <ul>
+    <% director.genres.forEach(genre => { %>
+      <li>
+        <a href="/genres/<%= genre %>">
+          <%= genre %>
+        </a>
+      </li>
+    <% }); %>
+  </ul>
 </body>
 </html>
