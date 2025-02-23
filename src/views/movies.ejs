@@ -10,7 +10,12 @@
 
   <ul>
     <% movies.forEach(movie => { %>
-      <li><a href="/movies/<%= movie.title %>"><%= movie.title %></a></li>
+      <li>
+        <a href="/movies/<%= movie.title %>">
+          <img src="<%= movie.poster %>" alt="">
+          <%= movie.title %>
+        </a>
+      </li>
     <% }); %>
   </ul>
 </body>
