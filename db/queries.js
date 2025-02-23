@@ -80,6 +80,21 @@ const getDirector = async (directorName) => {
   return director;
 }
 
-module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector };
+const getMoviesByDirector = async (directorName) => {
+  const [firstName, lastName] = directorName.split(' ');
+
+  const { rows } = await pool.query(`
+    SELECT m.title
+    from movies m
+    INNER JOIN directors d
+    ON m.id = d.movie_id
+    WHERE d.first_name = $1
+    AND d.last_name = $2;`,
+    [firstName, lastName]);
+
+  return rows;
+}
+
+module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector };
 
 
