@@ -57,15 +57,29 @@ const getAllDirectors = async () => {
 const getDirector = async (directorName) => {
   const [firstName, lastName] = directorName.split(' ');
 
-  const { rows } = await pool.query(`
-    SELECT *
-    FROM directors
-    WHERE directors.first_name = $1
-    AND directors.last_name = $2
-    ;`,
+  const directorQuery = await pool.query(`
+  SELECT DISTINCT d.first_name, d.last_name, g.category
+  FROM directors d
+  INNER JOIN movies m
+  ON d.movie_id = m.id
+  INNER JOIN genres g
+  ON m.id = g.movie_id
+  WHERE d.first_name = $1
+  AND d.last_name = $2;`,
   [firstName, lastName]
   );
-  return rows[0];
+
+  if (directorQuery.rows.length === 0) {
+    return null;
+  }
+
+  const director = directorQuery.rows[0];
+
+  director.genres = directorQuery.rows.map(row => row.category);
+
+  return director;
 }
 
 module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector };
+
+
