@@ -10,6 +10,16 @@ const allMoviesGet = asyncHandler(async (req, res) => {
     return res.status(404).send('No movies found');
   }
 
+  await Promise.all(
+    movies.map(async (movie) => {
+      const movieTitle = encodeURIComponent(movie.title);
+      const apiURL = `https://www.omdbapi.com/?t=${movieTitle}&apikey=${OMDB_API_KEY}`;
+      const response = await fetch(apiURL);
+      const data = await response.json();
+      movie.poster = data.Poster;
+    })
+  )
+
   res.render('movies', { title: 'Movies', movies });
 })
 
