@@ -18,5 +18,16 @@
       </li>
     <% }); %>
   </ul>
+
+  <ul>
+    <% movies.forEach(movie => { %>
+      <li>
+        <a href="/movies/<%= movie.title %>">
+          <img src="<%= movie.poster %>" alt="" height="150px;">
+        <%= movie.title %>
+        </a>
+      </li>
+    <% }); %>
+  </ul>
 </body>
 </html>
