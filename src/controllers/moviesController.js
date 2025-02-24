@@ -51,4 +51,19 @@ const movieGet = asyncHandler(async (req, res) => {
   res.render('movie', { title: `${movie.title}`, movie });
 })
 
-module.exports = { allMoviesGet, movieGet };
+const movieFormGet = (req, res) => {
+  res.render('movieform', { title: 'Add new movie' });
+}
+
+const movieFormPost = asyncHandler(async (req, res) => {
+  const { title, release_date, rating } = req.body;
+  const movie = await db.addMovie(title, release_date, rating);
+  
+  if (!movie) {
+    return res.status(404).send(`Movie ${title}, could not be created.`);
+  }
+  
+  res.redirect(`/movies/${title}`);
+})
+
+module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost };
