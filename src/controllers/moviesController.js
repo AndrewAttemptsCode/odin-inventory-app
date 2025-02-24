@@ -1,7 +1,27 @@
 const db = require('../../db/queries');
 const asyncHandler = require('express-async-handler');
+const { body, validationResult } = require('express-validator');
 
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
+
+const movieValidation = [
+  body('movie_title')
+  .trim()
+  .notEmpty().withMessage('Movie title is empty')
+  .customSanitizer(value => 
+    value
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ')
+  ),
+  
+  body('release_date')
+  .notEmpty().withMessage('Release date is empty'),
+
+  body('rating')
+  .notEmpty().withMessage('Rating is empty')
+  .isFloat({min: 0, max: 10}).withMessage('Rating must be number between 0 and 10'),
+];
 
 const allMoviesGet = asyncHandler(async (req, res) => {
   const movies = await db.getAllMovies();
@@ -55,15 +75,26 @@ const movieFormGet = (req, res) => {
   res.render('movieform', { title: 'Add new movie' });
 }
 
-const movieFormPost = asyncHandler(async (req, res) => {
-  const { title, release_date, rating } = req.body;
-  const movie = await db.addMovie(title, release_date, rating);
-  
-  if (!movie) {
-    return res.status(404).send(`Movie ${title}, could not be created.`);
-  }
-  
-  res.redirect(`/movies/${title}`);
-})
+const movieFormPost = [
+  movieValidation,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).render('movieform', { 
+        title: 'Add new movie',
+        errors: errors.array(),
+        movie_title: req.body.movie_title,
+        release_date: req.body.release_date,
+        rating: req.body.rating,
+      });
+    }
+
+    const { movie_title, release_date, rating } = req.body;
+    await db.addMovie(movie_title, release_date, rating);
+
+    res.redirect(`/movies/${movie_title}`);
+  }),
+];
 
 module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost };
