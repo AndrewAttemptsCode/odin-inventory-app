@@ -95,6 +95,15 @@ const getMoviesByDirector = async (directorName) => {
   return rows;
 }
 
-module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector };
+const addMovie = async (title, release_date, rating) => {
+  await pool.query(`
+    INSERT INTO movies (title, release_date, rating)
+    VALUES ($1, $2, $3)
+    ;`,
+    [title, release_date, rating]
+  );
+}
+
+module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie };
 
 
