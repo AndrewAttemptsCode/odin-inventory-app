@@ -110,4 +110,12 @@ const movieEditFormGet = async (req, res) => {
    });
 }
 
-module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost, movieEditFormGet };
+const movieEditDetailsPost = async (req, res) => {
+  const { movie_title, release_date, rating } = req.body;
+  const movieTitle = req.params.movie;
+
+  await db.updateDetailsPost(movieTitle, movie_title, release_date, rating);
+  res.redirect(`/movies/${movie_title}/edit`);
+}
+
+module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost, movieEditFormGet, movieEditDetailsPost };
