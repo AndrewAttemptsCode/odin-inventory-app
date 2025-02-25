@@ -97,4 +97,17 @@ const movieFormPost = [
   }),
 ];
 
-module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost };
+const movieEditFormGet = async (req, res) => {
+  const { movie } = req.params;
+  const movieDetails = await db.movieGet(movie);
+  const formattedDate = movieDetails.release_date.toISOString().split('T')[0];
+
+  res.render('movieeditform', { 
+    title: `Edit ${movieDetails.title}`,
+    movie_title: movieDetails.title,
+    release_date: formattedDate,
+    rating: movieDetails.rating,
+   });
+}
+
+module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost, movieEditFormGet };
