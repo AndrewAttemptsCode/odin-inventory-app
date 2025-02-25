@@ -9,7 +9,7 @@
   <h1><%= title %></h1>
 
   <h2>Details</h2>
-  <form action="/movies/<%= title %>/edit/details" method="post">
+  <form action="/movies/<%= movie_title %>/edit/details" method="post">
     <label for="title">Movie Title:</label>
     <input type="text" name="movie_title" id="movietitle" value="<%= locals.movie_title %>">
     <label for="release_date">Release Date:</label>
