@@ -104,6 +104,16 @@ const addMovie = async (title, release_date, rating) => {
   );
 }
 
-module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie };
+const updateDetailsPost = async (movieTitle, movie_title, release_date, rating) => {
+  await pool.query(`
+    UPDATE movies
+    SET title = $1, release_date = $2, rating = $3
+    WHERE title = $4
+    ;`,
+    [movie_title, release_date, rating, movieTitle]
+  );
+}
+
+module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie, updateDetailsPost };
 
 
