@@ -22,9 +22,13 @@
   </ul>
 
   <ul>
-    <% movie.genres.forEach(genre => { %>
-      <li><a href="/genres/<%= genre %>"><%= genre %></a></li>
-    <% }); %>
+    <% if (movie.genres.length === 0) { %>
+      <li>No genres set</li>
+    <% } else { %>
+      <% movie.genres.forEach(genre => { %>
+        <li><a href="/genres/<%= genre %>"><%= genre %></a></li>
+      <% }); %>
+    <% } %>
   </ul>
 
 </body>
