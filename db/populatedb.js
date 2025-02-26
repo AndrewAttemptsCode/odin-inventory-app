@@ -15,11 +15,17 @@ const SQL = `
   category TEXT
   );
 
+  CREATE TABLE IF NOT EXISTS directors_info (
+  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  first_name TEXT,
+  last_name TEXT,
+  bio TEXT
+  );
+  
   CREATE TABLE IF NOT EXISTS directors (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   movie_id INTEGER REFERENCES movies(id),
-  first_name TEXT,
-  last_name TEXT  
+  director_id INTEGER REFERENCES directors_info(id) 
   );
 
   INSERT INTO movies (title, release_date, rating)
@@ -42,12 +48,17 @@ const SQL = `
     (4, 'Drama'),
     (4, 'Music');
 
-  INSERT INTO directors (movie_id, first_name, last_name)
+  INSERT INTO directors_info (first_name, last_name, bio)
   VALUES
-    (1, 'Christopher', 'Nolan'),
-    (2, 'Christopher', 'Nolan'),
-    (3, 'Christopher', 'Nolan'),
-    (4, 'Damien', 'Chazelle');
+    ('Christopher', 'Nolan', 'info about director to fill in later'),
+    ('Damien', 'Chazelle', 'info about director fill in later');
+
+  INSERT INTO directors (movie_id, director_id)
+  VALUES
+    (1, 1),
+    (2, 1),
+    (3, 1),
+    (4, 2);
 `;
 
 const main = async () => {
