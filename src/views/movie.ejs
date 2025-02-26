@@ -31,7 +31,15 @@
     <% } %>
   </ul>
 
-  <a href="/movies/<%= movie.title %>/edit">Edit movie</a>
+  <p>Director:</p>
+  <% if (!movie.director) { %>
+    <p>No director set</p>
+  <% } else { %>
+    <a href="/directors/<%= movie.director.first_name %> <%= movie.director.last_name %>"><%= movie.director.first_name %> <%= movie.director.last_name %></a>
+  <% } %>
+  
+
+  <p><a href="/movies/<%= movie.title %>/edit">Edit movie</a></p>
 
 </body>
 </html>
