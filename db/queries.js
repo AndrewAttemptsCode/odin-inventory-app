@@ -46,8 +46,8 @@ const movieGet = async (title) => {
 
 const getAllDirectors = async () => {
   const { rows } = await pool.query(
-    `SELECT DISTINCT first_name, last_name
-    FROM directors
+    `SELECT first_name, last_name
+    FROM directors_info
     ORDER BY first_name ASC
     ;`
   )
@@ -58,14 +58,17 @@ const getDirector = async (directorName) => {
   const [firstName, lastName] = directorName.split(' ');
 
   const directorQuery = await pool.query(`
-  SELECT DISTINCT d.first_name, d.last_name, g.category
-  FROM directors d
+  SELECT di.id, di.first_name, di.last_name, g.category, di.bio
+  FROM directors_info di
+  INNER JOIN directors d
+  ON di.id = d.director_id
   INNER JOIN movies m
   ON d.movie_id = m.id
   INNER JOIN genres g
   ON m.id = g.movie_id
-  WHERE d.first_name = $1
-  AND d.last_name = $2;`,
+  WHERE di.first_name = $1
+  AND di.last_name = $2
+  GROUP BY g.category, di.id, di.first_name, di.last_name;`,
   [firstName, lastName]
   );
 
@@ -88,8 +91,10 @@ const getMoviesByDirector = async (directorName) => {
     from movies m
     INNER JOIN directors d
     ON m.id = d.movie_id
-    WHERE d.first_name = $1
-    AND d.last_name = $2;`,
+    INNER JOIN directors_info di
+    ON d.director_id = di.id
+    WHERE di.first_name = $1
+    AND di.last_name = $2;`,
     [firstName, lastName]);
 
   return rows;
