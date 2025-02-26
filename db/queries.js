@@ -39,6 +39,16 @@ const movieGet = async (title) => {
     [movie.id]
   );
 
+  const directorQuery = await pool.query(
+    `SELECT di.first_name, di.last_name
+    FROM directors_info di
+    INNER JOIN directors d
+    ON d.director_id = di.id
+    WHERE d.movie_id = $1;`,
+    [movie.id]
+  );
+
+  movie.director = directorQuery.rows[0];
   movie.genres = genreQuery.rows.map(row => row.category);
 
   return movie;
