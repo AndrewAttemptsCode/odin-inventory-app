@@ -40,7 +40,7 @@ const movieGet = async (title) => {
   );
 
   const directorQuery = await pool.query(
-    `SELECT di.first_name, di.last_name
+    `SELECT di.first_name, di.last_name, d.director_id
     FROM directors_info di
     INNER JOIN directors d
     ON d.director_id = di.id
@@ -129,6 +129,38 @@ const updateDetailsPost = async (movieTitle, movie_title, release_date, rating) 
   );
 }
 
-module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie, updateDetailsPost };
+const getDirectorInfo = async (movie) => {
+  const director = await pool.query(`
+    SELECT d.id, d.movie_id, d.director_id
+    FROM directors d
+    INNER JOIN movies m
+    ON m.id = d.movie_id
+    WHERE m.title = $1;
+    `, [movie]
+    );
+    
+  return director.rows[0];
+}
+
+const movieIdGet = async (title) => {
+    const movieQuery = await pool.query(
+    `SELECT id
+    FROM movies 
+    WHERE title = $1;`,
+    [title]
+  );
+
+  return movieQuery.rows[0].id;
+}
+
+const insertDirectorPost = async (movieId, directorId) => {
+  await pool.query(`
+    INSERT INTO directors (movie_id, director_id)
+    VALUES ($1, $2);
+    `, [movieId, directorId]
+    );
+}
+
+module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie, updateDetailsPost, getDirectorInfo, insertDirectorPost, movieIdGet };
 
 
