@@ -108,6 +108,7 @@ const movieEditFormGet = async (req, res) => {
     movie_title: movieDetails.title,
     release_date: formattedDate,
     rating: movieDetails.rating,
+    movieId: movieDetails.director.director_id,
     directors
    });
 }
@@ -120,4 +121,24 @@ const movieEditDetailsPost = async (req, res) => {
   res.redirect(`/movies/${movie_title}/edit`);
 }
 
-module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost, movieEditFormGet, movieEditDetailsPost };
+const movieEditDirectorPost = async (req, res) => {
+  const directorId = req.body.director;
+  const movie = req.params.movie;
+
+  const director = await db.getDirectorInfo(movie);
+  const movieId = await db.movieIdGet(movie);
+
+  console.log('director id:', directorId);
+  console.log('movie id: ', movieId);
+
+  if (!director) {
+    console.log('No director found');
+    await db.insertDirectorPost(movieId, directorId);
+  } else {
+    console.log('Director found');
+    // await db.updateDirectorPost(directorId);
+    // also add link to a form to add a director if none in the drop down
+  }
+}
+
+module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost, movieEditFormGet, movieEditDetailsPost, movieEditDirectorPost };
