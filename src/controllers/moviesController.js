@@ -100,6 +100,7 @@ const movieFormPost = [
 const movieEditFormGet = async (req, res) => {
   const { movie } = req.params;
   const movieDetails = await db.movieGet(movie);
+  const directors = await db.getAllDirectors();
   const formattedDate = movieDetails.release_date.toISOString().split('T')[0];
 
   res.render('movieeditform', { 
@@ -107,6 +108,7 @@ const movieEditFormGet = async (req, res) => {
     movie_title: movieDetails.title,
     release_date: formattedDate,
     rating: movieDetails.rating,
+    directors
    });
 }
 
