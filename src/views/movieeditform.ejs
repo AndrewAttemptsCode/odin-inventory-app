@@ -10,13 +10,27 @@
 
   <h2>Details</h2>
   <form action="/movies/<%= movie_title %>/edit/details" method="post">
-    <label for="title">Movie Title:</label>
+    <label for="movie_title">Movie Title:</label>
     <input type="text" name="movie_title" id="movietitle" value="<%= locals.movie_title %>">
     <label for="release_date">Release Date:</label>
     <input type="date" name="release_date" id="moviereleasedate" value="<%= locals.release_date %>">
     <label for="rating">Rating:</label>
     <input type="number" name="rating" id="movierating" step="0.1" min="0" max="10" value="<%= locals.rating %>">
     <button type="submit">Update Details</button>
+  </form>
+
+  <h2>Director</h2>
+  <form action="/movies/<%= movie_title %>/edit/director" method="post">
+    <label for="director">Director Name:</label>
+    <select name="director" id="director">
+      <option value="">Select a Director</option>
+      <% directors.forEach(director => { %>
+        <option value="<%= director.id %>">
+          <%= director.first_name %> <%= director.last_name %>
+        </option>
+      <% }); %>
+    </select>
+    <button type="submit">Update Director</button>
   </form>
 </body>
 </html>
