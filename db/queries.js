@@ -56,7 +56,7 @@ const movieGet = async (title) => {
 
 const getAllDirectors = async () => {
   const { rows } = await pool.query(
-    `SELECT first_name, last_name
+    `SELECT id, first_name, last_name
     FROM directors_info
     ORDER BY first_name ASC
     ;`
