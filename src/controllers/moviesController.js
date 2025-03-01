@@ -123,22 +123,22 @@ const movieEditDetailsPost = async (req, res) => {
 
 const movieEditDirectorPost = async (req, res) => {
   const directorId = req.body.director;
-  const movie = req.params.movie;
+  const movieTitle = req.params.movie;
 
-  const director = await db.getDirectorInfo(movie);
-  const movieId = await db.movieIdGet(movie);
+  const director = await db.getDirectorInfo(movieTitle);
+  const movieId = await db.movieIdGet(movieTitle);
 
   console.log('director id:', directorId);
   console.log('movie id: ', movieId);
 
   if (!director) {
-    console.log('No director found');
     await db.insertDirectorPost(movieId, directorId);
   } else {
-    console.log('Director found');
-    // await db.updateDirectorPost(directorId);
+    await db.updateDirectorPost(movieId, directorId, director.id);
     // also add link to a form to add a director if none in the drop down
   }
+
+  res.redirect(`/movies/${movieTitle}/edit`);
 }
 
 module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost, movieEditFormGet, movieEditDetailsPost, movieEditDirectorPost };
