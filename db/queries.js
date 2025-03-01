@@ -48,7 +48,7 @@ const movieGet = async (title) => {
     [movie.id]
   );
 
-  movie.director = directorQuery.rows[0];
+  movie.director = directorQuery.rows[0] || null;
   movie.genres = genreQuery.rows.map(row => row.category);
 
   return movie;

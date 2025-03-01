@@ -108,7 +108,7 @@ const movieEditFormGet = async (req, res) => {
     movie_title: movieDetails.title,
     release_date: formattedDate,
     rating: movieDetails.rating,
-    movieId: movieDetails.director.director_id,
+    movieId: movieDetails.director ? movieDetails.director.director_id : null,
     directors
    });
 }

@@ -26,7 +26,7 @@
       <option value="">Select a Director</option>
       <% directors.forEach(director => { %>
         <option value="<%= director.id %>"
-          <% if (movieId === director.id) { %> selected <% } %>>
+          <% if (movieId && movieId === director.id) { %> selected <% } %>>
           <%= director.first_name %> <%= director.last_name %>
         </option>
       <% }); %>
