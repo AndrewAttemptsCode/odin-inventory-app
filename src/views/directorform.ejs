@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <h1><%= title %></h1>
+
+  <form action="/directors/add-director" method="post">
+    <label for="firstName">First Name:</label>
+    <input type="text" name="first_name" id="firstName">
+    <label for="lastName">Last Name:</label>
+    <input type="text" name="last_name" id="lastName">
+    <label for="bio">Bio:</label>
+    <textarea name="bio" id="bio"></textarea>
+    <button type="submit">Add Director</button>
+  </form>
+</body>
+</html>
