@@ -10,11 +10,11 @@
 
   <h2>Details</h2>
   <form action="/movies/<%= movie_title %>/edit/details" method="post">
-    <label for="movie_title">Movie Title:</label>
+    <label for="movietitle">Movie Title:</label>
     <input type="text" name="movie_title" id="movietitle" value="<%= locals.movie_title %>">
-    <label for="release_date">Release Date:</label>
+    <label for="moviereleasedate">Release Date:</label>
     <input type="date" name="release_date" id="moviereleasedate" value="<%= locals.release_date %>">
-    <label for="rating">Rating:</label>
+    <label for="movierating">Rating:</label>
     <input type="number" name="rating" id="movierating" step="0.1" min="0" max="10" value="<%= locals.rating %>">
     <button type="submit">Update Details</button>
   </form>
@@ -31,6 +31,7 @@
         </option>
       <% }); %>
     </select>
+    <p>Cannot find the director? <a href="/directors/add-director">Add new director</a></p>
     <button type="submit">Update Director</button>
   </form>
 </body>
