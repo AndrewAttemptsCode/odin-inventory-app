@@ -36,7 +36,14 @@ const directorGet = asyncHandler(async (req, res) => {
 })
 
 const directorFormGet = (req, res) => {
-  res.render('directorform', { title: 'Add New Director' });
+  const movieName = req.params.movie;
+  res.render('directorform', { title: 'Add New Director', movieName });
 }
 
-module.exports = { allDirectorsGet, directorGet, directorFormGet };
+const directorFormPost = async (req, res) => {
+  const { first_name, last_name, bio, movieName } = req.body;
+  await db.addNewDirector(first_name, last_name, bio);
+  res.redirect(`/movies/${movieName}/edit`);
+}
+
+module.exports = { allDirectorsGet, directorGet, directorFormGet, directorFormPost };
