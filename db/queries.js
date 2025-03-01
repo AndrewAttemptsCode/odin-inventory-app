@@ -161,6 +161,15 @@ const insertDirectorPost = async (movieId, directorId) => {
     );
 }
 
-module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie, updateDetailsPost, getDirectorInfo, insertDirectorPost, movieIdGet };
+const updateDirectorPost = async (movieId, directorId, id) => {
+  await pool.query(`
+    UPDATE directors
+    SET movie_id = $1, director_id = $2
+    WHERE id = $3;
+    `, [movieId, directorId, id]
+    );
+}
+
+module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie, updateDetailsPost, getDirectorInfo, insertDirectorPost, movieIdGet, updateDirectorPost };
 
 
