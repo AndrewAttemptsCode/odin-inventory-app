@@ -35,4 +35,8 @@ const directorGet = asyncHandler(async (req, res) => {
   res.render('director', { title: 'Director Info', director, movies });
 })
 
-module.exports = { allDirectorsGet, directorGet };
+const directorFormGet = (req, res) => {
+  res.render('directorform', { title: 'Add New Director' });
+}
+
+module.exports = { allDirectorsGet, directorGet, directorFormGet };
