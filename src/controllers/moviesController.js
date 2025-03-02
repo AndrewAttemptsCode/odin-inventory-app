@@ -101,6 +101,8 @@ const movieEditFormGet = async (req, res) => {
   const { movie } = req.params;
   const movieDetails = await db.movieGet(movie);
   const directors = await db.getAllDirectors();
+  const genres = await db.getAllGenres();
+  const selectedGenres = await db.movieGet(movie);
   const formattedDate = movieDetails.release_date.toISOString().split('T')[0];
 
   res.render('movieeditform', { 
@@ -109,7 +111,9 @@ const movieEditFormGet = async (req, res) => {
     release_date: formattedDate,
     rating: movieDetails.rating,
     movieId: movieDetails.director ? movieDetails.director.director_id : null,
-    directors
+    directors,
+    genres,
+    selectedGenres: selectedGenres.genres ? selectedGenres.genres : null,
    });
 }
 
@@ -128,17 +132,17 @@ const movieEditDirectorPost = async (req, res) => {
   const director = await db.getDirectorInfo(movieTitle);
   const movieId = await db.movieIdGet(movieTitle);
 
-  console.log('director id:', directorId);
-  console.log('movie id: ', movieId);
-
   if (!director) {
     await db.insertDirectorPost(movieId, directorId);
   } else {
     await db.updateDirectorPost(movieId, directorId, director.id);
-    // also add link to a form to add a director if none in the drop down
   }
 
   res.redirect(`/movies/${movieTitle}/edit`);
 }
 
-module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost, movieEditFormGet, movieEditDetailsPost, movieEditDirectorPost };
+const movieEditGenresPost = async (req, res) => {
+  res.send('test');
+}
+
+module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost, movieEditFormGet, movieEditDetailsPost, movieEditDirectorPost, movieEditGenresPost };
