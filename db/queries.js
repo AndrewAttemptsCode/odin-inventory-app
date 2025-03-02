@@ -49,7 +49,7 @@ const movieGet = async (title) => {
   );
 
   movie.director = directorQuery.rows[0] || null;
-  movie.genres = genreQuery.rows.map(row => row.category);
+  movie.genres = genreQuery.rows.map(row => row.category) || null;
 
   return movie;
 }
