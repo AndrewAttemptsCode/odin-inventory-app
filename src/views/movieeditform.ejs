@@ -19,6 +19,25 @@
     <button type="submit">Update Details</button>
   </form>
 
+  <h2>Genres</h2>
+  <form action="/movies/<%= movie_title %>/edit/genres" method="post">
+    <% genres.forEach(genre => { %> 
+      <label>
+        <input 
+          type="checkbox" 
+          name="genres" 
+          id="genres" 
+          value="<%= genre.category %>"
+          <% if (selectedGenres && selectedGenres.some(selectedGenre => selectedGenre === genre.category)) { %>
+            checked
+          <% } %>
+        >
+        <%= genre.category %>
+      </label>
+    <% }); %>
+    <button type="submit">Update Genres</button>
+  </form>
+
   <h2>Director</h2>
   <form action="/movies/<%= movie_title %>/edit/director" method="post">
     <label for="director">Director Name:</label>
