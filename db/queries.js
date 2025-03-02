@@ -178,6 +178,35 @@ const addNewDirector = async (firstName, lastName, bio) => {
   );
 }
 
-module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie, updateDetailsPost, getDirectorInfo, insertDirectorPost, movieIdGet, updateDirectorPost, addNewDirector };
+const movieByGenre = async (movieId) => {
+  const { rows } = await pool.query(`
+    SELECT id, movie_id, category
+    FROM genres
+    WHERE movie_id = $1;
+    `, [movieId]
+  );
+  return rows;
+}
+
+const removeMovieGenresPost = async (movieId) => {
+  await pool.query(`
+    DELETE FROM genres
+    WHERE movie_id = $1;
+    `, [movieId]
+  );
+}
+
+const updateMovieGenresPost = async (movieId, genres) => {
+  for (const genre of genres) {
+    await pool.query(`
+      INSERT INTO genres (movie_id, category)
+      VALUES ($1, $2);
+      `, [movieId, genre]
+    );
+  }
+  
+}
+
+module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie, updateDetailsPost, getDirectorInfo, insertDirectorPost, movieIdGet, updateDirectorPost, addNewDirector, movieByGenre, removeMovieGenresPost, updateMovieGenresPost };
 
 

@@ -142,7 +142,21 @@ const movieEditDirectorPost = async (req, res) => {
 }
 
 const movieEditGenresPost = async (req, res) => {
-  res.send('test');
+  const genres = [].concat(req.body.genres).filter(Boolean);
+  const movieTitle = req.params.movie;
+  const movieId = await db.movieIdGet(movieTitle);
+  const existingMovieGenre = await db.movieByGenre(movieId);
+
+  if (genres.length === 0) {
+    return res.status(400).send('No genres set.');
+  }
+
+  if (existingMovieGenre) {
+    await db.removeMovieGenresPost(movieId, genres);
+  }
+  
+  await db.updateMovieGenresPost(movieId, genres);
+  res.redirect(`/movies/${movieTitle}/edit`);
 }
 
 module.exports = { allMoviesGet, movieGet, movieFormGet, movieFormPost, movieEditFormGet, movieEditDetailsPost, movieEditDirectorPost, movieEditGenresPost };
