@@ -8,7 +8,7 @@ const genreValidation = [
   body('genre')
   .trim()
   .notEmpty().withMessage('Genre is empty')
-  .isAlpha().withMessage('Letters only')
+  .matches(/^[a-zA-Z- ]+$/).withMessage('Only letters, hyphens and spaces allowed')
   .customSanitizer(value => 
     value
     .split(' ')
