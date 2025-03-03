@@ -35,7 +35,7 @@
         <%= genre.category %>
       </label>
     <% }); %>
-    <!-- todo: if no genre, get a form to add a new genre -->
+    <p>Cannot find the genre? <a href="/genres/<%= movie_title %>/add-genre">Add new genre</a></p>
     <button type="submit">Update Genres</button>
   </form>
 
