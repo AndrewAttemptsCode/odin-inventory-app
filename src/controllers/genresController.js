@@ -1,7 +1,21 @@
 const db = require('../../db/queries');
 const asyncHandler = require('express-async-handler');
+const { body, validationResult } = require('express-validator');
 
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
+
+const genreValidation = [
+  body('genre')
+  .trim()
+  .notEmpty().withMessage('Genre is empty')
+  .isAlpha().withMessage('Letters only')
+  .customSanitizer(value => 
+    value
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' '),
+  )
+];
 
 const allGenreGet = asyncHandler(async (req, res) => {
   const genres = await db.getAllGenres();
@@ -39,17 +53,39 @@ const genreFormGet = (req, res) => {
   res.render('genreform', { title: 'Add new genre', movieName });
 }
 
-const genreFormPost = async (req, res) => {
-  const { movieName, genre } = req.body;
+const genreFormPost = [
+  genreValidation,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
 
-  if (!genre) {
-    return res.status(404).send('No genre set');
-  }
+    if (!errors.isEmpty()) {
+      return res.render('genreform', 
+        {
+          title: 'Add new genre',
+          errors: errors.array(),
+          movieName: req.body.movieName,
+        }
+      )
+    }
 
-  const movieId = await db.movieIdGet(movieName);
-  await db.insertGenrePost(movieId, genre);
-  res.redirect(`/movies/${movieName}/edit`);
+    const { movieName, genre } = req.body;
 
-}
+    const movieId = await db.movieIdGet(movieName);
+    const existingGenre = await db.existingGenreGet(genre);
+    
+    if (existingGenre.length > 0) {
+      return res.render('genreform',
+        {
+          title: 'Add new genre',
+          errors: [{msg: 'Genre  already exists'}],
+          movieName,
+        });
+    }
+
+    await db.insertGenrePost(movieId, genre);
+    res.redirect(`/movies/${movieName}/edit`);
+
+})
+];
 
 module.exports = { allGenreGet, genreMoviesGet, genreFormGet, genreFormPost };
