@@ -34,4 +34,22 @@ const genreMoviesGet = asyncHandler(async (req, res) => {
   res.render('genre', { title: `${genre} movies`, movies })
 })
 
-module.exports = { allGenreGet, genreMoviesGet };
+const genreFormGet = (req, res) => {
+  const movieName = req.params.movie;
+  res.render('genreform', { title: 'Add new genre', movieName });
+}
+
+const genreFormPost = async (req, res) => {
+  const { movieName, genre } = req.body;
+
+  if (!genre) {
+    return res.status(404).send('No genre set');
+  }
+
+  const movieId = await db.movieIdGet(movieName);
+  await db.insertGenrePost(movieId, genre);
+  res.redirect(`/movies/${movieName}/edit`);
+
+}
+
+module.exports = { allGenreGet, genreMoviesGet, genreFormGet, genreFormPost };
