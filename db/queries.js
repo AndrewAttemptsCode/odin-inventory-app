@@ -204,9 +204,16 @@ const updateMovieGenresPost = async (movieId, genres) => {
       `, [movieId, genre]
     );
   }
-  
 }
 
-module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie, updateDetailsPost, getDirectorInfo, insertDirectorPost, movieIdGet, updateDirectorPost, addNewDirector, movieByGenre, removeMovieGenresPost, updateMovieGenresPost };
+const insertGenrePost = async (movieId, genre) => {
+  await pool.query(`
+    INSERT INTO genres (movie_id, category)
+    VALUES ($1, $2);
+    `, [movieId, genre]
+  );
+}
+
+module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie, updateDetailsPost, getDirectorInfo, insertDirectorPost, movieIdGet, updateDirectorPost, addNewDirector, movieByGenre, removeMovieGenresPost, updateMovieGenresPost, insertGenrePost };
 
 
