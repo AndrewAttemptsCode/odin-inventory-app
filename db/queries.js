@@ -5,6 +5,16 @@ const getAllGenres = async () => {
   return rows;
 }
 
+const existingGenreGet = async (genre) => {
+  const { rows } = await pool.query(`
+    SELECT category
+    FROM genres
+    WHERE category = $1
+    LIMIT 1;
+    `, [genre])
+  return rows;
+}
+
 const getAllMovies = async () => {
   const { rows } = await pool.query('SELECT * FROM movies ORDER BY title ASC;');
   return rows;
@@ -214,6 +224,6 @@ const insertGenrePost = async (movieId, genre) => {
   );
 }
 
-module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie, updateDetailsPost, getDirectorInfo, insertDirectorPost, movieIdGet, updateDirectorPost, addNewDirector, movieByGenre, removeMovieGenresPost, updateMovieGenresPost, insertGenrePost };
+module.exports = { getAllGenres, getAllMovies, getGenreMovies, movieGet, getAllDirectors, getDirector, getMoviesByDirector, addMovie, updateDetailsPost, getDirectorInfo, insertDirectorPost, movieIdGet, updateDirectorPost, addNewDirector, movieByGenre, removeMovieGenresPost, updateMovieGenresPost, insertGenrePost, existingGenreGet };
 
 
