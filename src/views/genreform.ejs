@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <h1><%= movieName %></h1>
+  <h2><%= title %></h2>
+
+  <form action="/genres/<%= movieName %>/add-genre" method="post">
+    <input type="hidden" name="movieName" value="<%= movieName %>">
+    <label for="genre">Genre:</label>
+    <input type="text" name="genre" id="genre">
+    <button type="submit">Add genre</button>
+  </form>
+</body>
+</html>
