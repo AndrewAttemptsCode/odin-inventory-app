@@ -9,6 +9,8 @@
   <h1><%= movieName %></h1>
   <h2><%= title %></h2>
 
+  <%- include('partials/errors') %>
+
   <form action="/genres/<%= movieName %>/add-genre" method="post">
     <input type="hidden" name="movieName" value="<%= movieName %>">
     <label for="genre">Genre:</label>
