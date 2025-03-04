@@ -8,14 +8,16 @@
 <body>
   <h1><%= title %></h1>
 
-  <form action="/directors/:movieName/add-director" method="post">
-    <input type="hidden" name="movieName" value="<%= movieName %>">
+  <%- include('partials/errors') %>
+
+  <form action="/directors/<%= movieName %>/add-director" method="post">
+    <input type="hidden" name="movieName" value="<%= locals.movieName %>">
     <label for="firstName">First Name:</label>
-    <input type="text" name="first_name" id="firstName">
+    <input type="text" name="first_name" id="firstName" value="<%= locals.first_name %>">
     <label for="lastName">Last Name:</label>
-    <input type="text" name="last_name" id="lastName">
+    <input type="text" name="last_name" id="lastName" value="<%= locals.last_name %>">
     <label for="bio">Bio:</label>
-    <textarea name="bio" id="bio"></textarea>
+    <textarea name="bio" id="bio"><%= locals.bio %></textarea>
     <button type="submit">Add Director</button>
   </form>
 </body>
