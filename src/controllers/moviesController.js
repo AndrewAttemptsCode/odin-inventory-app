@@ -21,6 +21,10 @@ const movieValidation = [
   body('rating')
   .notEmpty().withMessage('Rating is empty')
   .isFloat({min: 0, max: 10}).withMessage('Rating must be number between 0 and 10'),
+
+  body('summary')
+  .trim()
+  .notEmpty().withMessage('Summary is empty'),
 ];
 
 const allMoviesGet = asyncHandler(async (req, res) => {
@@ -87,11 +91,12 @@ const movieFormPost = [
         movie_title: req.body.movie_title,
         release_date: req.body.release_date,
         rating: req.body.rating,
+        summary: req.body.summary,
       });
     }
 
-    const { movie_title, release_date, rating } = req.body;
-    await db.addMovie(movie_title, release_date, rating);
+    const { movie_title, release_date, rating, summary } = req.body;
+    await db.addMovie(movie_title, release_date, rating, summary);
 
     res.redirect(`/movies/${movie_title}`);
   }),
@@ -110,6 +115,7 @@ const movieEditFormGet = async (req, res) => {
     movie_title: movieDetails.title,
     release_date: formattedDate,
     rating: movieDetails.rating,
+    summary: movieDetails.summary,
     movieId: movieDetails.director ? movieDetails.director.director_id : null,
     directors,
     genres,
@@ -118,10 +124,10 @@ const movieEditFormGet = async (req, res) => {
 }
 
 const movieEditDetailsPost = async (req, res) => {
-  const { movie_title, release_date, rating } = req.body;
+  const { movie_title, release_date, rating, summary } = req.body;
   const movieTitle = req.params.movie;
 
-  await db.updateDetailsPost(movieTitle, movie_title, release_date, rating);
+  await db.updateDetailsPost(movieTitle, movie_title, release_date, rating, summary);
   res.redirect(`/movies/${movie_title}/edit`);
 }
 

@@ -6,7 +6,8 @@ const SQL = `
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   title TEXT,
   release_date DATE,
-  rating FLOAT
+  rating FLOAT,
+  summary TEXT,
   );
 
   CREATE TABLE IF NOT EXISTS genres (
@@ -28,12 +29,12 @@ const SQL = `
   director_id INTEGER REFERENCES directors_info(id) 
   );
 
-  INSERT INTO movies (title, release_date, rating)
+  INSERT INTO movies (title, release_date, rating, summary)
   VALUES
-    ('Dunkirk', '2017-07-21', 7.8),
-    ('Interstellar', '2014-11-07', 8.7),
-    ('The Prestige', '2006-11-10', 8.5),
-    ('Whiplash', '2014-10-10', 8.5);
+    ('Dunkirk', '2017-07-21', 7.8, 'A gripping World War II drama depicting the desperate evacuation of Allied soldiers from Dunkirk, told through three interwoven perspectives: land, sea, and air.'),
+    ('Interstellar', '2014-11-07', 8.7, 'A team of astronauts travels through a wormhole in search of a new home for humanity as Earth faces ecological collapse.'),
+    ('The Prestige', '2006-11-10', 8.5, 'Two rival magicians in 19th-century London engage in an escalating battle of deception, obsession, and sacrifice to create the ultimate illusion.'),
+    ('Whiplash', '2014-10-10', 8.5, 'A young jazz drummer enrolls in a prestigious music conservatory, where he faces intense psychological and physical challenges under a ruthless instructor.');
 
   INSERT INTO genres (movie_id, category)
   VALUES

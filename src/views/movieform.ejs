@@ -17,6 +17,8 @@
     <input type="date" name="release_date" id="moviereleasedate" value="<%= locals.release_date %>">
     <label for="rating">Rating:</label>
     <input type="number" name="rating" id="movierating" step="0.1" min="0" max="10" value="<%= locals.rating %>">
+    <label for="summary">Summary:</label>
+    <textarea name="summary" id="summary"><%= locals.summary %></textarea>
     <button type="submit">Add movie</button>
   </form>
 </body>

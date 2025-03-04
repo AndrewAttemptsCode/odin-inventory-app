@@ -37,8 +37,14 @@
   <% } else { %>
     <a href="/directors/<%= movie.director.first_name %> <%= movie.director.last_name %>"><%= movie.director.first_name %> <%= movie.director.last_name %></a>
   <% } %>
-  
 
+  <p>Summary:</p>
+  <% if (!movie.summary) { %>
+    <p>No summary set</p>
+  <% } else { %>
+    <%= movie.summary %>
+  <% } %>
+  
   <p><a href="/movies/<%= movie.title %>/edit">Edit movie</a></p>
 
 </body>

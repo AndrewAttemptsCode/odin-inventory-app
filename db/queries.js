@@ -34,7 +34,7 @@ const getGenreMovies = async (genre) => {
 
 const movieGet = async (title) => {
   const movieQuery = await pool.query(
-    `SELECT id, title, release_date, rating
+    `SELECT id, title, release_date, rating, summary
     FROM movies 
     WHERE title = $1;`,
     [title]
@@ -120,22 +120,22 @@ const getMoviesByDirector = async (directorName) => {
   return rows;
 }
 
-const addMovie = async (title, release_date, rating) => {
+const addMovie = async (title, release_date, rating, summary) => {
   await pool.query(`
-    INSERT INTO movies (title, release_date, rating)
-    VALUES ($1, $2, $3)
+    INSERT INTO movies (title, release_date, rating, summary)
+    VALUES ($1, $2, $3, $4)
     ;`,
-    [title, release_date, rating]
+    [title, release_date, rating, summary]
   );
 }
 
-const updateDetailsPost = async (movieTitle, movie_title, release_date, rating) => {
+const updateDetailsPost = async (movieTitle, movie_title, release_date, rating, summary) => {
   await pool.query(`
     UPDATE movies
-    SET title = $1, release_date = $2, rating = $3
-    WHERE title = $4
+    SET title = $1, release_date = $2, rating = $3, summary = $4
+    WHERE title = $5
     ;`,
-    [movie_title, release_date, rating, movieTitle]
+    [movie_title, release_date, rating, summary, movieTitle]
   );
 }
 
