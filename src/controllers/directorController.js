@@ -1,7 +1,31 @@
 const db = require('../../db/queries');
 const asyncHandler = require('express-async-handler');
+const { body, validationResult } = require('express-validator');
 
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
+
+const directorValidation = [
+  body('first_name')
+  .trim()
+  .notEmpty().withMessage('First name field is empty')
+  .matches(/^[a-zA-Z]+$/).withMessage('First name should contain letters only')
+  .customSanitizer(value =>
+    value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
+  ),
+
+  body('last_name')
+  .trim()
+  .notEmpty().withMessage('Last name field is empty')
+  .matches(/^[a-z-A-Z]+$/).withMessage('Last name should contain letters only')
+  .customSanitizer(value =>
+    value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
+  ),
+
+  body('bio')
+  .trim()
+  .notEmpty().withMessage('Bio field is empty'),
+
+];
 
 const allDirectorsGet = asyncHandler(async (req, res) => {
   const directors = await db.getAllDirectors();
@@ -40,10 +64,27 @@ const directorFormGet = (req, res) => {
   res.render('directorform', { title: 'Add New Director', movieName });
 }
 
-const directorFormPost = async (req, res) => {
-  const { first_name, last_name, bio, movieName } = req.body;
-  await db.addNewDirector(first_name, last_name, bio);
-  res.redirect(`/movies/${movieName}/edit`);
-}
+const directorFormPost = [
+  directorValidation,
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).render('directorform', 
+        {
+          title: 'Add new director',
+          errors: errors.array(),
+          movieName: req.body.movieName,
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          bio: req.body.bio,
+        });
+    }
+
+    const { first_name, last_name, bio, movieName } = req.body;
+    await db.addNewDirector(first_name, last_name, bio);
+    res.redirect(`/movies/${movieName}/edit`);
+  }
+]; 
 
 module.exports = { allDirectorsGet, directorGet, directorFormGet, directorFormPost };
