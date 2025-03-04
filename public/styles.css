@@ -68,6 +68,11 @@ p, h1, h2, h3, h4, h5, h6 {
   z-index: 1;
 }
 
+.main-nav a:focus {
+  outline-offset: 4px;
+  outline-color: oklch(0.977 0.014 308.299);
+}
+
 .main-nav a::before {
   content: '';
   position: absolute;
