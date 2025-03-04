@@ -1,5 +1,5 @@
 const indexGet = (req, res) => {
-  res.send('Splash home page');
+  res.render('homepage', { title: 'Movies Inventory' });
 }
 
 module.exports = { indexGet };
