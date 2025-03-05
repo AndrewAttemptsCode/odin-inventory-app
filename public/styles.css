@@ -104,7 +104,8 @@ main {
   background: linear-gradient(to bottom right, oklch(0.627 0.265 303.9), oklch(0.291 0.149 302.717));
 }
 
-main h1 {
+main h1,
+main h2 {
   color: whitesmoke;
 }
 
