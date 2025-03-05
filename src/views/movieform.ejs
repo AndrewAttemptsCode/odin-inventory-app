@@ -7,20 +7,26 @@
   <title><%= title %></title>
 </head>
 <body>
-  <h1><%= title %></h1>
+  <main>
+    <h1><%= title %></h1>
 
-  <%- include('partials/errors') %>
+    <%- include('partials/errors') %>
 
-  <form action="/movies/add-movie" method="post">
-    <label for="title">Movie Title:</label>
-    <input type="text" name="movie_title" id="movietitle" value="<%= locals.movie_title %>">
-    <label for="release_date">Release Date:</label>
-    <input type="date" name="release_date" id="moviereleasedate" value="<%= locals.release_date %>">
-    <label for="rating">Rating:</label>
-    <input type="number" name="rating" id="movierating" step="0.1" min="0" max="10" value="<%= locals.rating %>">
-    <label for="summary">Summary:</label>
-    <textarea name="summary" id="summary"><%= locals.summary %></textarea>
-    <button type="submit">Add movie</button>
-  </form>
+    <div class="form-wrapper">
+      <form class="form-container" action="/movies/add-movie" method="post">
+        <label for="title">Movie Title:</label>
+        <input type="text" name="movie_title" id="movietitle" value="<%= locals.movie_title %>">
+        <label for="release_date">Release Date:</label>
+        <input type="date" name="release_date" id="moviereleasedate" value="<%= locals.release_date %>">
+        <label for="rating">Rating:</label>
+        <input type="number" name="rating" id="movierating" step="0.1" min="0" max="10" value="<%= locals.rating %>">
+        <label for="summary">Summary:</label>
+        <textarea name="summary" id="summary"><%= locals.summary %></textarea>
+        <button type="submit">Add movie</button>
+      </form>
+    </div>
+    
+  </main>
+  
 </body>
 </html>
