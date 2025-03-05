@@ -7,55 +7,68 @@
   <title><%= title %></title>
 </head>
 <body>
-  <h1><%= title %></h1>
+  <main>
+    <h1><%= title %></h1>
+    <div class="form-wrapper">
+      
+      <form class="form-container" action="/movies/<%= movie_title %>/edit/details" method="post">
+        <h2>Details</h2>
+        <hr>
+        <label for="movietitle">Movie Title:</label>
+        <input type="text" name="movie_title" id="movietitle" value="<%= locals.movie_title %>">
+        <label for="moviereleasedate">Release Date:</label>
+        <input type="date" name="release_date" id="moviereleasedate" value="<%= locals.release_date %>">
+        <label for="movierating">Rating:</label>
+        <input type="number" name="rating" id="movierating" step="0.1" min="0" max="10" value="<%= locals.rating %>">
+        <label for="summary">Summary:</label>
+        <textarea name="summary" id="summary"><%= locals.summary %></textarea>
+        <button type="submit">Update Details</button>
+      </form>
+    </div>
 
-  <h2>Details</h2>
-  <form action="/movies/<%= movie_title %>/edit/details" method="post">
-    <label for="movietitle">Movie Title:</label>
-    <input type="text" name="movie_title" id="movietitle" value="<%= locals.movie_title %>">
-    <label for="moviereleasedate">Release Date:</label>
-    <input type="date" name="release_date" id="moviereleasedate" value="<%= locals.release_date %>">
-    <label for="movierating">Rating:</label>
-    <input type="number" name="rating" id="movierating" step="0.1" min="0" max="10" value="<%= locals.rating %>">
-    <label for="summary">Summary:</label>
-    <textarea name="summary" id="summary"><%= locals.summary %></textarea>
-    <button type="submit">Update Details</button>
-  </form>
+    <div class="form-wrapper">
+      <form class="form-container" action="/movies/<%= movie_title %>/edit/genres" method="post">
+        <h2>Genres</h2>
+        <hr>
+        <% genres.forEach(genre => { %> 
+          <label>
+            <input 
+              type="checkbox" 
+              name="genres" 
+              id="genres" 
+              value="<%= genre.category %>"
+              <% if (selectedGenres && selectedGenres.some(selectedGenre => selectedGenre === genre.category)) { %>
+                checked
+              <% } %>
+            >
+            <%= genre.category %>
+          </label>
+        <% }); %>
+        <p>Cannot find the genre? <a href="/genres/<%= movie_title %>/add-genre">Add new genre</a></p>
+        <button type="submit">Update Genres</button>
+      </form>
+    </div>
 
-  <h2>Genres</h2>
-  <form action="/movies/<%= movie_title %>/edit/genres" method="post">
-    <% genres.forEach(genre => { %> 
-      <label>
-        <input 
-          type="checkbox" 
-          name="genres" 
-          id="genres" 
-          value="<%= genre.category %>"
-          <% if (selectedGenres && selectedGenres.some(selectedGenre => selectedGenre === genre.category)) { %>
-            checked
-          <% } %>
-        >
-        <%= genre.category %>
-      </label>
-    <% }); %>
-    <p>Cannot find the genre? <a href="/genres/<%= movie_title %>/add-genre">Add new genre</a></p>
-    <button type="submit">Update Genres</button>
-  </form>
-
-  <h2>Director</h2>
-  <form action="/movies/<%= movie_title %>/edit/director" method="post">
-    <label for="director">Director Name:</label>
-    <select name="director" id="director">
-      <option value="">Select a Director</option>
-      <% directors.forEach(director => { %>
-        <option value="<%= director.id %>"
-          <% if (movieId && movieId === director.id) { %> selected <% } %>>
-          <%= director.first_name %> <%= director.last_name %>
-        </option>
-      <% }); %>
-    </select>
-    <p>Cannot find the director? <a href="/directors/<%= movie_title %>/add-director">Add new director</a></p>
-    <button type="submit">Update Director</button>
-  </form>
+    <div class="form-wrapper">
+      <form class="form-container" action="/movies/<%= movie_title %>/edit/director" method="post">
+        <h2>Director</h2>
+        <hr>
+        <label for="director">Director Name:</label>
+        <select name="director" id="director">
+          <option value="">Select a Director</option>
+          <% directors.forEach(director => { %>
+            <option value="<%= director.id %>"
+              <% if (movieId && movieId === director.id) { %> selected <% } %>>
+              <%= director.first_name %> <%= director.last_name %>
+            </option>
+          <% }); %>
+        </select>
+        <p>Cannot find the director? <a href="/directors/<%= movie_title %>/add-director">Add new director</a></p>
+        <button type="submit">Update Director</button>
+      </form>
+    </div>
+    
+  </main>
+  
 </body>
 </html>
