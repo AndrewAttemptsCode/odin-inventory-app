@@ -68,12 +68,16 @@ p, h1, h2, h3, h4, h5, h6 {
   z-index: 1;
 }
 
-.main-nav a:focus {
+.main-nav a:focus,
+.form-container input,
+.form-container textarea,
+.form-container button {
   outline-offset: 4px;
   outline-color: oklch(0.977 0.014 308.299);
 }
 
-.main-nav a::before {
+.main-nav a::before,
+.form-container button::before {
   content: '';
   position: absolute;
   top: 0%;
@@ -87,6 +91,84 @@ p, h1, h2, h3, h4, h5, h6 {
   z-index: -1;
 }
 
-.main-nav a:hover::before {
+.main-nav a:hover::before,
+.form-container button:hover::before {
   transform: scaleX(1);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 1rem;
+  background: linear-gradient(to bottom right, oklch(0.627 0.265 303.9), oklch(0.291 0.149 302.717));
+}
+
+main h1 {
+  color: whitesmoke;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.form-container input,
+.form-container textarea {
+  margin-bottom: 15px;
+  border-radius: 5px;
+  padding: 5px;
+  border: transparent;
+  color: oklch(0.291 0.149 302.717);
+}
+
+.form-container textarea {
+  height: 15ch;
+  resize: vertical;
+}
+
+.form-container label {
+  color: whitesmoke;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.form-container button {
+  position: relative;
+  z-index: 1;
+  color: whitesmoke;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+  background: transparent;
+  border: 2px solid whitesmoke;
+  cursor: pointer;
+}
+
+.error-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  list-style: none;
+}
+
+.error-item {
+  color: whitesmoke;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: #FF4D4D;
+  font-weight: bold;
+  border: 2px solid oklch(0.505 0.213 27.518);
+  z-index: 50;
 }
