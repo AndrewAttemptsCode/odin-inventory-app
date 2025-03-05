@@ -124,7 +124,8 @@ main h2 {
 }
 
 .form-container input,
-.form-container textarea {
+.form-container textarea,
+.form-container select {
   margin-bottom: 15px;
   border-radius: 5px;
   padding: 5px;
@@ -172,4 +173,25 @@ main h2 {
   font-weight: bold;
   border: 2px solid oklch(0.505 0.213 27.518);
   z-index: 50;
+}
+
+.form-container h2 {
+  font-size: 30px;
+  color: rgb(226, 226, 226);
+}
+
+.form-container hr {
+  margin-bottom: 10px;
+}
+
+.form-container p,
+.form-container a {
+  color: whitesmoke;
+  margin-bottom: 5px;
+}
+
+.form-container input[type='checkbox'] {
+  height: 20px;
+  width: 20px;
+  transform: translateY(2px);
 }
