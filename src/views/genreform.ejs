@@ -7,16 +7,22 @@
   <title><%= title %></title>
 </head>
 <body>
-  <h1><%= movieName %></h1>
-  <h2><%= title %></h2>
+  <main>
+    <h1><%= movieName %></h1>
+    <h2><%= title %></h2>
 
-  <%- include('partials/errors') %>
-
-  <form action="/genres/<%= movieName %>/add-genre" method="post">
-    <input type="hidden" name="movieName" value="<%= movieName %>">
-    <label for="genre">Genre:</label>
-    <input type="text" name="genre" id="genre">
-    <button type="submit">Add genre</button>
-  </form>
+    <%- include('partials/errors') %>
+    
+    <div class="form-wrapper">
+      <form class="form-container" action="/genres/<%= movieName %>/add-genre" method="post">
+        <input type="hidden" name="movieName" value="<%= movieName %>">
+        <label for="genre">Genre:</label>
+        <input type="text" name="genre" id="genre">
+        <button type="submit">Add genre</button>
+      </form>
+    </div>
+    
+  </main>
+  
 </body>
 </html>
