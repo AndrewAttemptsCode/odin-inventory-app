@@ -7,19 +7,25 @@
   <title><%= title %></title>
 </head>
 <body>
-  <h1><%= title %></h1>
+  <main>
+    <h1><%= title %></h1>
 
-  <%- include('partials/errors') %>
+    <%- include('partials/errors') %>
 
-  <form action="/directors/<%= movieName %>/add-director" method="post">
-    <input type="hidden" name="movieName" value="<%= locals.movieName %>">
-    <label for="firstName">First Name:</label>
-    <input type="text" name="first_name" id="firstName" value="<%= locals.first_name %>">
-    <label for="lastName">Last Name:</label>
-    <input type="text" name="last_name" id="lastName" value="<%= locals.last_name %>">
-    <label for="bio">Bio:</label>
-    <textarea name="bio" id="bio"><%= locals.bio %></textarea>
-    <button type="submit">Add Director</button>
-  </form>
+    <div class="form-wrapper">
+      <form class="form-container" action="/directors/<%= movieName %>/add-director" method="post">
+        <input type="hidden" name="movieName" value="<%= locals.movieName %>">
+        <label for="firstName">First Name:</label>
+        <input type="text" name="first_name" id="firstName" value="<%= locals.first_name %>">
+        <label for="lastName">Last Name:</label>
+        <input type="text" name="last_name" id="lastName" value="<%= locals.last_name %>">
+        <label for="bio">Bio:</label>
+        <textarea name="bio" id="bio"><%= locals.bio %></textarea>
+        <button type="submit">Add Director</button>
+      </form>
+    </div>
+    
+  </main>
+  
 </body>
 </html>
