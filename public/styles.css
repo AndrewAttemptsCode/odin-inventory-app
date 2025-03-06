@@ -195,3 +195,77 @@ main h2 {
   width: 20px;
   transform: translateY(2px);
 }
+
+/* Header section */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: oklch(0.627 0.265 303.9);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.logo a {
+  font-size: 24px;
+  color: whitesmoke;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.burger-menu {
+  display: none;
+  font-size: 24px;
+  color: whitesmoke;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: whitesmoke;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    gap: 0;
+    padding-inline-start: 0;
+    background: whitesmoke;
+  }
+
+  .nav-links a {
+    display: block;
+    color: oklch(0.627 0.265 303.9);
+  }
+
+  .nav-links li:hover {
+    background: #d4d4d4;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+  
+  .burger-menu {
+    display: block;
+  }
+}
