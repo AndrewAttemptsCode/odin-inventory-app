@@ -73,7 +73,8 @@ p, h1, h2, h3, h4, h5, h6 {
 .form-container textarea,
 .form-container button,
 .genres-item-list a,
-.nav-links a {
+.nav-links a,
+.item-list a {
   outline-offset: 4px;
   outline-color: oklch(0.977 0.014 308.299);
 }
