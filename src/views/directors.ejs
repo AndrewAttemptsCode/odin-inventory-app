@@ -15,16 +15,19 @@
     <%- include('partials/navbar') %>
   </header>
 
-  <h1><%= title %></h1>
-  <ul>
-    <% directors.forEach(director => { %>
-      <li>
-        <a href="/directors/<%= director.first_name %> <%=director.last_name %>">
-          <img src="default_profile.png" alt="" height="100px;">
-          <%= director.first_name %> <%= director.last_name %>
-        </a>
-      </li>
-    <% }); %>
-  </ul>
+  <main>
+    <h1><%= title %></h1>
+    <ul class="item-list">
+      <% directors.forEach(director => { %>
+        <li>
+          <a href="/directors/<%= director.first_name %> <%=director.last_name %>">
+            <img class="director-img" src="default_profile.png" alt="">
+            <%= director.first_name %> <%= director.last_name %>
+          </a>
+        </li>
+      <% }); %>
+    </ul>
+  </main>
+  
 </body>
 </html>
