@@ -310,3 +310,10 @@ nav {
   font-weight: bold;
   font-size: 1.5rem;
 }
+
+.director-img {
+  width: 200px;
+  height: auto;
+  background: transparent;
+  mix-blend-mode: multiply;
+}
