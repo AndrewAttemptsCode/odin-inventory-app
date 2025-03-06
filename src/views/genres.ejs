@@ -15,12 +15,15 @@
     <%- include('partials/navbar') %>
   </header>
 
-  <h1><%= title %></h1>
+  <main>
+    <h1><%= title %></h1>
   
-  <ul>
-    <% genres.forEach(genre => { %>
-      <li><a href="/genres/<%= genre.category %>"><%= genre.category %></a></li>
-    <% }); %>
-  </ul>
+    <ul class="genres-item-list">
+      <% genres.forEach(genre => { %>
+        <li><a href="/genres/<%= genre.category %>"><%= genre.category %></a></li>
+      <% }); %>
+    </ul>
+  </main>
+  
 </body>
 </html>
