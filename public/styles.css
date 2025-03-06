@@ -269,3 +269,22 @@ nav {
     display: block;
   }
 }
+
+/* Cards */
+
+.item-list {
+  list-style: none;
+  display: grid;
+  padding-inline-start: 0;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.item-list a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: whitesmoke;
+}
+
