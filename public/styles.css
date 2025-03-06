@@ -71,7 +71,9 @@ p, h1, h2, h3, h4, h5, h6 {
 .main-nav a:focus,
 .form-container input,
 .form-container textarea,
-.form-container button {
+.form-container button,
+.genres-item-list a,
+.nav-links a {
   outline-offset: 4px;
   outline-color: oklch(0.977 0.014 308.299);
 }
@@ -288,3 +290,23 @@ nav {
   color: whitesmoke;
 }
 
+.genres-item-list {
+  list-style: none;
+  display: grid;
+  padding-inline-start: 0;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.genres-item-list a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 10px;
+  text-decoration: none;
+  color: whitesmoke;
+  padding: 40px;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
