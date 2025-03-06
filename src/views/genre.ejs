@@ -15,17 +15,20 @@
     <%- include('partials/navbar') %>
   </header>
 
-  <h1><%= title %></h1>
+  <main>
+    <h1><%= title %></h1>
 
-  <ul>
-  <% movies.forEach(movie => { %>
-    <li>
-      <a href="/movies/<%= movie.title %>">
-        <img src="<%= movie.poster %>" alt="">
-        <%= movie.title%>
-      </a>
-    </li>
-  <% }); %>
-  </ul>
+    <ul class="item-list">
+    <% movies.forEach(movie => { %>
+      <li>
+        <a href="/movies/<%= movie.title %>">
+          <img src="<%= movie.poster %>" alt="">
+          <%= movie.title%>
+        </a>
+      </li>
+    <% }); %>
+    </ul>
+  </main>
+  
 </body>
 </html>
