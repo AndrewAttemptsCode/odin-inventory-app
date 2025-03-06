@@ -18,9 +18,7 @@
   <main>
     <h1><%= title %></h1>
 
-    <a href="/movies/add-movie">Add movie</a>
-
-    <ul>
+    <ul class="item-list">
       <% movies.forEach(movie => { %>
         <li>
           <a href="/movies/<%= movie.title %>">
