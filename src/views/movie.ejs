@@ -15,46 +15,61 @@
     <%- include('partials/navbar') %>
   </header>
 
-  <h1><%= title %></h1>
-  
-  <div style="height: 400px;">
-    <img src="<%= movie.poster %>" alt="" style="height: 100%;">
-  </div>
+  <main class="grid">
+    <section>
+      <div class="poster-container" style="height: 400px;">
+        <img src="<%= movie.poster %>" alt="" style="height: 100%;">
+      </div>
+      <p><a class="edit-movie" href="/movies/<%= movie.title %>/edit">Edit movie</a></p>
+    </section>
 
-  <ul>
-    <li>
-      Rating: <%= movie.rating %> / 10
-    </li>
-    <li>
-      Release Date: <%= movie.releaseDate %>
-    </li>
-  </ul>
+    <section>
+      <h1><%= title %></h1>
+    
+      <ul>
+        <li>
+          <h2>Rating</h2>
+          <p><%= movie.rating %> / 10</p>
+        </li>
+        <li>
+          <h2>Release Date</h2>
+          <p><%= movie.releaseDate %></p>
+        </li>
+      </ul>
 
-  <ul>
-    <% if (movie.genres.length === 0) { %>
-      <li>No genres set</li>
-    <% } else { %>
-      <% movie.genres.forEach(genre => { %>
-        <li><a href="/genres/<%= genre %>"><%= genre %></a></li>
-      <% }); %>
-    <% } %>
-  </ul>
+      <div>
+        <h2>Director</h2>
+        <% if (!movie.director) { %>
+          <p>No director set</p>
+        <% } else { %>
+          <a href="/directors/<%= movie.director.first_name %> <%= movie.director.last_name %>"><p><%= movie.director.first_name %> <%= movie.director.last_name %></p></a>
+        <% } %>
+      </div>
 
-  <p>Director:</p>
-  <% if (!movie.director) { %>
-    <p>No director set</p>
-  <% } else { %>
-    <a href="/directors/<%= movie.director.first_name %> <%= movie.director.last_name %>"><%= movie.director.first_name %> <%= movie.director.last_name %></a>
-  <% } %>
+      <div>
+      <h2>Genres</h2>
+      <ul class="genres-set">
+        <% if (movie.genres.length === 0) { %>
+          <li><p>No genres set</p></li>
+        <% } else { %>
+          <% movie.genres.forEach(genre => { %>
+            <li><a href="/genres/<%= genre %>"><p><%= genre %></p></a></li>
+          <% }); %>
+        <% } %>
+      </ul>
+      </div>
 
-  <p>Summary:</p>
-  <% if (!movie.summary) { %>
-    <p>No summary set</p>
-  <% } else { %>
-    <%= movie.summary %>
-  <% } %>
-  
-  <p><a href="/movies/<%= movie.title %>/edit">Edit movie</a></p>
+      
+      <div>
+        <h2>Summary</h2>
+        <% if (!movie.summary) { %>
+          <p>No summary set</p>
+        <% } else { %>
+          <p class="summary"><%= movie.summary %></p>
+        <% } %>
+      </div>
+    </section>
+  </main>
 
 </body>
 </html>
