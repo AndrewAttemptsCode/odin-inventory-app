@@ -4,6 +4,8 @@ const { body, validationResult } = require('express-validator');
 
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
 
+const defaultPoster = '/no_image_available.png'; 
+
 const movieValidation = [
   body('movie_title')
   .trim()
@@ -40,7 +42,7 @@ const allMoviesGet = asyncHandler(async (req, res) => {
       const apiURL = `https://www.omdbapi.com/?t=${movieTitle}&apikey=${OMDB_API_KEY}`;
       const response = await fetch(apiURL);
       const data = await response.json();
-      movie.poster = data.Poster;
+      movie.poster = data.Poster || defaultPoster;
     })
   )
 
@@ -70,7 +72,7 @@ const movieGet = asyncHandler(async (req, res) => {
   
   const response = await fetch(apiURL);
   const data = await response.json();
-  movie.poster = data.Poster;
+  movie.poster = data.Poster || defaultPoster;
 
   res.render('movie', { title: `${movie.title}`, movie });
 })
