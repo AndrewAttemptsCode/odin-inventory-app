@@ -7,7 +7,7 @@ const SQL = `
   title TEXT,
   release_date DATE,
   rating FLOAT,
-  summary TEXT,
+  summary TEXT
   );
 
   CREATE TABLE IF NOT EXISTS genres (
