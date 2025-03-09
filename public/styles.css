@@ -297,6 +297,15 @@ nav {
   gap: 20px;
 }
 
+.item-list.filmography {
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.item-list.filmography img {
+  height: 150px;
+}
+
 .item-list a {
   display: flex;
   flex-direction: column;
@@ -359,7 +368,8 @@ section ul {
   padding-inline-start: 0;
 }
 
-section .summary {
+section .summary,
+section .bio {
   width: 100%;
   max-width: 60ch;
 }
