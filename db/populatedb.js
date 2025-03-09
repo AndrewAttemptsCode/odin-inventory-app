@@ -51,8 +51,8 @@ const SQL = `
 
   INSERT INTO directors_info (first_name, last_name, bio)
   VALUES
-    ('Christopher', 'Nolan', 'info about director to fill in later'),
-    ('Damien', 'Chazelle', 'info about director fill in later');
+    ('Christopher', 'Nolan', 'A British-American filmmaker known for his complex narratives, practical effects, and philosophical themes. He gained international recognition with Memento (2000) and went on to direct acclaimed films like The Dark Knight Trilogy, Inception, Interstellar, and Oppenheimer, often exploring time, memory, and human nature.'),
+    ('Damien', 'Chazelle', 'An American director celebrated for his rhythmic and visually striking storytelling. He gained prominence with Whiplash (2014) and won the Academy Award for Best Director for La La Land (2016), making him the youngest winner in history. His films, including First Man (2018) and Babylon (2022), often explore ambition, artistry, and obsession.');
 
   INSERT INTO directors (movie_id, director_id)
   VALUES
