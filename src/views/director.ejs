@@ -15,30 +15,45 @@
     <%- include('partials/navbar') %>
   </header>
 
-  <h1><%= director.first_name %> <%= director.last_name %></h1>
-  <img src="/default_profile.png" alt="" height="200px;">
+  <main class="grid">
+  <section>
+    <img class="director-img" src="/default_profile.png" alt="">
+  </section>
+  
+  <section>
+    <h1><%= director.first_name %> <%= director.last_name %></h1>
 
-  <p>Bio: <%=director.bio %></p>
+    <div>
+      <h2>Biography</h2>
+    <p class="bio"><%=director.bio %></p>
+    </div>
+    
+    <ul class="genres-set">
+      <% director.genres.forEach(genre => { %>
+        <li>
+          <a href="/genres/<%= genre %>">
+            <p><%= genre %></p>
+          </a>
+        </li>
+      <% }); %>
+    </ul>
 
-  <ul>
-    <% director.genres.forEach(genre => { %>
-      <li>
-        <a href="/genres/<%= genre %>">
-          <%= genre %>
-        </a>
-      </li>
-    <% }); %>
-  </ul>
+    <div>
+      <h2>Filmography</h2>
+      <ul class="item-list filmography">
+        <% movies.forEach(movie => { %>
+          <li>
+            <a href="/movies/<%= movie.title %>">
+              <img src="<%= movie.poster %>" alt="">
+            <%= movie.title %>
+            </a>
+          </li>
+        <% }); %>
+      </ul>
+    </div>
+  </section>
 
-  <ul>
-    <% movies.forEach(movie => { %>
-      <li>
-        <a href="/movies/<%= movie.title %>">
-          <img src="<%= movie.poster %>" alt="" height="150px;">
-        <%= movie.title %>
-        </a>
-      </li>
-    <% }); %>
-  </ul>
+  </main>
+  
 </body>
 </html>
