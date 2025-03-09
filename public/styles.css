@@ -285,6 +285,11 @@ nav {
   .burger-menu {
     display: block;
   }
+
+  main.grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 }
 
 /* Cards */
