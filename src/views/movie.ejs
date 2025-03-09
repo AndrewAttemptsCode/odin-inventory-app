@@ -47,19 +47,18 @@
       </div>
 
       <div>
-      <h2>Genres</h2>
-      <ul class="genres-set">
-        <% if (movie.genres.length === 0) { %>
-          <li><p>No genres set</p></li>
-        <% } else { %>
-          <% movie.genres.forEach(genre => { %>
-            <li><a href="/genres/<%= genre %>"><p><%= genre %></p></a></li>
-          <% }); %>
-        <% } %>
-      </ul>
+        <h2>Genres</h2>
+        <ul class="genres-set">
+          <% if (movie.genres.length === 0) { %>
+            <li><p>No genres set</p></li>
+          <% } else { %>
+            <% movie.genres.forEach(genre => { %>
+              <li><a href="/genres/<%= genre %>"><p><%= genre %></p></a></li>
+            <% }); %>
+          <% } %>
+        </ul>
       </div>
 
-      
       <div>
         <h2>Summary</h2>
         <% if (!movie.summary) { %>
