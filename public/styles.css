@@ -343,8 +343,6 @@ nav {
 .director-img {
   width: 200px;
   height: auto;
-  background: transparent;
-  mix-blend-mode: multiply;
 }
 
 /* Movie */
@@ -403,3 +401,17 @@ section a,
   border-radius: 10px;
 }
 
+/* Animation */
+
+main * {
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
