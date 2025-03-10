@@ -122,16 +122,43 @@ const movieEditFormGet = async (req, res) => {
     directors,
     genres,
     selectedGenres: selectedGenres.genres ? selectedGenres.genres : null,
-   });
+   })
 }
 
-const movieEditDetailsPost = async (req, res) => {
-  const { movie_title, release_date, rating, summary } = req.body;
-  const movieTitle = req.params.movie;
+const movieEditDetailsPost = [
+  movieValidation, 
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
 
-  await db.updateDetailsPost(movieTitle, movie_title, release_date, rating, summary);
-  res.redirect(`/movies/${movie_title}/edit`);
-}
+    if (!errors.isEmpty()) {
+      const { movie } = req.params;
+      const movieDetails = await db.movieGet(movie);
+      const directors = await db.getAllDirectors();
+      const genres = await db.getAllGenres();
+      const selectedGenres = await db.movieGet(movie);
+      const formattedDate = movieDetails.release_date.toISOString().split('T')[0];
+
+      return res.status(400).render('movieeditform', {
+        title: `Edit ${movieDetails.title}`,
+        errors: errors.array(),
+        movie_title: movieDetails.title,
+        release_date: formattedDate,
+        rating: movieDetails.rating,
+        summary: movieDetails.summary,
+        movieId: movieDetails.director ? movieDetails.director.director_id : null,
+        directors,
+        genres,
+        selectedGenres: selectedGenres.genres ? selectedGenres.genres : null,
+      });
+    }
+
+    const { movie_title, release_date, rating, summary } = req.body;
+    const movieTitle = req.params.movie;
+
+    await db.updateDetailsPost(movieTitle, movie_title, release_date, rating, summary);
+    res.redirect(`/movies/${movie_title}/edit`);
+})
+];
 
 const movieEditDirectorPost = async (req, res) => {
   const directorId = req.body.director;
